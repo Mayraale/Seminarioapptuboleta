@@ -7,7 +7,7 @@
 
   <swiper-container
   [loop]="true"
-  [allowSlidePrev]="false"
+  [allowSlidePrev]="true"
   [pagination]="true"> 
 
   <swiper-slide *ngFor="let slide of slides; let i = index" >
@@ -22,7 +22,7 @@
 
       <a  class="center-content" href="url"> ¿Olvidaste tu contraseña? </a>
 
-      <ion-button color="danger" class="btn-red"> Iniciar Sesion </ion-button>
+      <ion-button (click)="gotohome()" color="danger" class="btn-red"> Iniciar Sesion </ion-button>
 
       <ion-button class="btn-sesion">
         <ion-icon class="icons" name="logo-google"></ion-icon>
