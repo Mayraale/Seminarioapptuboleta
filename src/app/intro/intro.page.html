@@ -1,0 +1,43 @@
+<ion-header [translucent]="true">
+  
+</ion-header>
+
+<ion-content [fullscreen]="true">
+ 
+
+  <swiper-container
+  [loop]="true"
+  [allowSlidePrev]="false"
+  [pagination]="true"> 
+
+  <swiper-slide *ngFor="let slide of slides; let i = index" >
+    <img src="{{slide.image}}"/>
+    <h1 class="titles" > {{slide.titles}} </h1>
+    <p *ngIf=" i < 2"  class="subtitles" > {{slide.subtitles}} </p>
+    <img *ngIf="i == 2" src=" {{slide.subtitles}} ">
+    
+    <div *ngIf="i == 3">
+      <ion-input class="inputs" label="Correo" label-placement="floating" ></ion-input>
+      <ion-input class="inputs" label="Contraseña" label-placement="floating" ></ion-input>
+
+      <a  class="center-content" href="url"> ¿Olvidaste tu contraseña? </a>
+
+      <ion-button color="danger" class="btn-red"> Iniciar Sesion </ion-button>
+
+      <ion-button class="btn-sesion">
+        <ion-icon class="icons" name="logo-google"></ion-icon>
+        Continuar con Google
+      </ion-button>
+
+      <ion-button class="btn-sesion">
+        <ion-icon class="icons" name="logo-facebook"></ion-icon>
+        Continuar con Facebook
+      </ion-button>
+      
+    </div>
+  </swiper-slide>
+
+   
+  </swiper-container>
+
+</ion-content>

@@ -8,21 +8,6 @@
   transform: translateY(-50%);
 }
 
-.titles {
-  font-family: consolas;
-  font-weight: bold;
-  color: black;
-  text-align: center;
-}
-
-.subtitles {
-  margin-top: 40px;
-  margin-left: 20px; 
-  margin-right: 20px;
-  text-align: center;
-  color: black;
-}
-
 
 #container strong {
   font-size: 20px;
@@ -40,16 +25,4 @@
 
 #container a {
   text-decoration: none;
-}
-
-swiper-container {
-  width: 100%;
-  height: 100%;
-}
-
-swiper-slide {
-  background-color: white;
-  flex-direction: column-reverse;
-  align-items: center;
-  justify-content: start;
 }
