@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router'
+import { Storage } from '@ionic/storage-angular'
 
 @Component({
   selector: 'app-home',
@@ -11,11 +12,13 @@ export class HomePage {
   
 
   constructor(
-    private router: Router
+    private router: Router,
+    private storage: Storage
   ) {}
 
   gotointro() {
     this.router.navigateByUrl('/intro');
+    this.storage.set('mostreLaIntro', true);
   }
 
 }
