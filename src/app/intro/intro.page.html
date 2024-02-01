@@ -6,7 +6,7 @@
  
 
   <swiper-container
-  [loop]="true"
+  [loop]="false"
   [allowSlidePrev]="true"
   [pagination]="true"> 
 
@@ -17,12 +17,36 @@
     <img *ngIf="i == 2" src=" {{slide.subtitles}} ">
     
     <div *ngIf="i == 3">
-      <ion-input class="inputs" label="Correo" label-placement="floating" ></ion-input>
-      <ion-input class="inputs" label="Contraseña" label-placement="floating" ></ion-input>
+      <form [formGroup]="loginForm" (ngSubmit)="Enviarform(loginForm.value)">
 
-      <a  class="center-content" href="url"> ¿Olvidaste tu contraseña? </a>
+        <ion-input formControlName="email" class="inputs" label="Correo" label-placement="floating" ></ion-input>
+        <ion-input formControlName="password" class="inputs" label="Contraseña" label-placement="floating" ></ion-input>
 
-      <ion-button (click)="gotohome()" color="danger" class="btn-red"> Iniciar Sesion </ion-button>
+        <ion-button type="submit" [disabled]="!loginForm.valid" color="danger" class="btn-red"> Iniciar Sesion </ion-button>
+
+        <div *ngFor="let validation of validation_message.email" >
+          <div class="" *ngIf="(loginForm.get('email')?.hasError(validation.type) && loginForm.get('email')?.dirty)">
+            <ion-toast isOpen="true"
+              color="danger"
+             [message]="validation.message" duration="2000"></ion-toast>
+          </div>
+        </div>
+        <div *ngFor="let validation of validation_message.password" >
+          <div class="" *ngIf="(loginForm.get('password')?.hasError(validation.type) && loginForm.get('password')?.touched)">
+            <ion-toast isOpen="true"
+              color="danger"
+             [message]="validation.message" duration="2000"></ion-toast>
+          </div>
+        </div>
+      </form>
+
+        <ion-alert
+              [isOpen]="isAlertOpen"
+              message="Correo electrónico o contraseña incorrectos. Por favor, inténtalo de nuevo."
+              (didDismiss)="isAlertOpen = false"
+        ></ion-alert>
+
+      <a  class="center-content" id="open-modal"> Registrate </a>
 
       <ion-button class="btn-sesion">
         <ion-icon class="icons" name="logo-google"></ion-icon>
@@ -37,6 +61,38 @@
     </div>
   </swiper-slide>
 
+  <div #page>
+    <ion-content class="ion-padding">
+      <ion-modal class="modal" #modal trigger="open-modal" [canDismiss]="canDismiss" [presentingElement]="page">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>Registrarte</ion-title>
+              <ion-buttons slot="end">
+                <ion-button (click)="modal.dismiss()">Close</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+            <form [formGroup]="registerForm" (ngSubmit)="Register(registerForm.value)">
+
+              <div style="display: flex; gap: 10px;">
+                <ion-input formControlName="name" class="inputs-register" label="Nomnre" label-placement="floating" ></ion-input>
+                <ion-input formControlName="last_name" class="inputs-register" label="Apellido" label-placement="floating" ></ion-input>
+              </div>
+
+              <ion-input formControlName="email" class="inputs" label="Correo" label-placement="floating" ></ion-input>
+              <ion-input formControlName="password" class="inputs" label="Contraseña" label-placement="floating" ></ion-input>
+              <ion-input formControlName="confirm_password" class="inputs" label="Contraseña" label-placement="floating" ></ion-input>
+
+              <ion-button type="submit" [disabled]="!registerForm.valid" color="success" class="btn-red"> Crear cuenta </ion-button>
+
+            </form>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    </ion-content>
+  </div>
    
   </swiper-container>
 

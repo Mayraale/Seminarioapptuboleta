@@ -9,7 +9,6 @@ import { Storage } from '@ionic/storage-angular'
 })
 export class HomePage {
 
-  
 
   constructor(
     private router: Router,
@@ -18,7 +17,11 @@ export class HomePage {
 
   gotointro() {
     this.router.navigateByUrl('/intro');
-    this.storage.set('mostreLaIntro', true);
+    
+  }
+
+  ngOnInit(){
+    this.storage.set('no mostre la intro', false);
   }
 
 }

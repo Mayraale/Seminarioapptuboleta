@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+import { ToastController } from '@ionic/angular'
+import { AuthService } from '../services/auth.service'
 
 @Component({
   selector: 'app-intro',
   templateUrl: './intro.page.html',
   styleUrls: ['./intro.page.scss'],
 })
-export class IntroPage implements OnInit {
+export class IntroPage {
 
   slides = [
     {
@@ -31,16 +34,68 @@ export class IntroPage implements OnInit {
     },
     
   ]
+
+  loginForm: FormGroup;
+  registerForm: FormGroup;
+  isAlertOpen = false;
+
+  validation_message = {
+    email: [
+      {type: "required", message: "El correo es obligatorio!"},
+      {type: "pattern", message: "El correo no es valido"}
+    ],
+    password: [
+      {type: "required", message: "introduzca su contraseña"},
+    ]
+  }
   
   constructor(
-    private router: Router
-  ) {}
-  
-  gotohome() {
-    this.router.navigateByUrl('/home');
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private toastController: ToastController,
+    private authservices: AuthService,
+  ) {
+    this.loginForm = this.formBuilder.group({
+      email: new FormControl("", Validators.compose([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")])),
+      password: new FormControl("", Validators.compose([Validators.required]))
+    })
+
+    this.registerForm = this.formBuilder.group({
+      name: new FormControl(''),
+      last_name: new FormControl(''),
+      email: new FormControl('', Validators.compose([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")])),
+      password: new FormControl('', Validators.compose([Validators.required])),
+      confirm_password: new FormControl('', Validators.compose([Validators.required]))
+    })
   }
 
-  ngOnInit() {
+  async openToast(){
+    const toast = await
+    this.toastController.create({
+      message:'Error de video',
+      duration: 2000
+    })
   }
+
+  async canDismiss(data?: any, role?: string) {
+    return role !== 'gesture';
+  }
+
+  Enviarform( loginData: any ){
+    console.log(loginData);
+    this.authservices.loginUser(loginData).then(res => {
+      this.router.navigateByUrl('/home')
+    }).catch(err => {
+      console.log(err);
+      this.isAlertOpen = true
+    })
+
+  }
+
+  Register(RegisterData: any){
+    this.authservices.RegisterUser(RegisterData)
+  }
+  
+
 
 }
