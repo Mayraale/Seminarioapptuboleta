@@ -14,10 +14,8 @@ export class AuthService {
 
   async loginUser(credential: any) {
 
-    const dtastorage = await this.storage.get('register')
-    this.datalogin = JSON.parse(dtastorage)
-    console.log(this.datalogin);
-    
+    this.datalogin = await this.storage.get('user')
+  
     return new Promise((accept, reject) => {
 
       if(credential.email == this.datalogin.email && credential.password == this.datalogin.password ) {
@@ -29,12 +27,12 @@ export class AuthService {
     })
   }
 
-  RegisterUser(credential: any){
+  RegisterUser(credentialreg: any){
     
     return new Promise((accept, reject) => {
 
-      if(credential.password == credential.confirmpassword ) {
-        this.storage.set('user', credential);
+      if(credentialreg.password == credentialreg.confirmpassword ) {
+        this.storage.set('user', credentialreg);
         accept('register correcto')
       } else {
         reject('contraseña incorrecta')
