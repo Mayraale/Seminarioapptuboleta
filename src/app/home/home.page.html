@@ -1,1 +1,26 @@
-<ion-button (click)="gotointro()" color="danger" class="btn-red"> Regresar al Intro </ion-button>
+<header class="header"> PROXIMOS EVENTOS</header>
+<ion-content>
+    <swiper-container
+    style="background-color: white;"
+    [pagination]="true"
+    [slidesPerView]="1">
+        <swiper-slide *ngFor="let slide of event_list">
+            <img src="{{slide.image}}">
+        </swiper-slide>
+    </swiper-container>
+
+</ion-content>
+
+<ion-content>
+    <ion-list>
+      <ion-item *ngFor="let item of event_list; let index">
+        <ion-avatar slot="start">
+          <img [src]="item.image" />
+        </ion-avatar>
+        <ion-label>{{ item.name }}</ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-infinite-scroll>
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-content>

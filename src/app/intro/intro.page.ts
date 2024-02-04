@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
-import { ToastController } from '@ionic/angular'
+import { ToastController, ModalController } from '@ionic/angular'
 import { AuthService } from '../services/auth.service'
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-intro',
@@ -38,6 +39,7 @@ export class IntroPage {
   loginForm: FormGroup;
   registerForm: FormGroup;
   isAlertOpen = false;
+  prueba: any;
 
   validation_message = {
     email: [
@@ -53,7 +55,9 @@ export class IntroPage {
     private router: Router,
     private formBuilder: FormBuilder,
     private toastController: ToastController,
+    private modalController: ModalController,
     private authservices: AuthService,
+    private storage: Storage
   ) {
     this.loginForm = this.formBuilder.group({
       email: new FormControl("", Validators.compose([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")])),
@@ -65,7 +69,7 @@ export class IntroPage {
       last_name: new FormControl(''),
       email: new FormControl('', Validators.compose([Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")])),
       password: new FormControl('', Validators.compose([Validators.required])),
-      confirm_password: new FormControl('', Validators.compose([Validators.required]))
+      confirmpassword: new FormControl('', Validators.compose([Validators.required])),
     })
   }
 
@@ -82,9 +86,9 @@ export class IntroPage {
   }
 
   Enviarform( loginData: any ){
-    console.log(loginData);
     this.authservices.loginUser(loginData).then(res => {
-      this.router.navigateByUrl('/home')
+      this.router.navigateByUrl('menu/home')
+      this.loginForm.reset()
     }).catch(err => {
       console.log(err);
       this.isAlertOpen = true
@@ -92,8 +96,20 @@ export class IntroPage {
 
   }
 
-  Register(RegisterData: any){
-    this.authservices.RegisterUser(RegisterData)
+  async closeModal() {
+    await this.modalController.dismiss();
+  }
+  
+
+  async Register(RegisterData: any){
+
+    this.authservices.RegisterUser(RegisterData).then(res => {
+      this.closeModal()
+      this.registerForm.reset()
+    }).catch(err => {
+      console.log(err);
+      this.isAlertOpen = true
+    })
   }
   
 

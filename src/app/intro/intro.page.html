@@ -31,7 +31,7 @@
              [message]="validation.message" duration="2000"></ion-toast>
           </div>
         </div>
-        <div *ngFor="let validation of validation_message.password" >
+        <div *ngFor="let validation of validation_message.password">
           <div class="" *ngIf="(loginForm.get('password')?.hasError(validation.type) && loginForm.get('password')?.touched)">
             <ion-toast isOpen="true"
               color="danger"
@@ -77,15 +77,30 @@
             <form [formGroup]="registerForm" (ngSubmit)="Register(registerForm.value)">
 
               <div style="display: flex; gap: 10px;">
-                <ion-input formControlName="name" class="inputs-register" label="Nomnre" label-placement="floating" ></ion-input>
+                <ion-input formControlName="name" class="inputs-register" label="Nombre" label-placement="floating" ></ion-input>
                 <ion-input formControlName="last_name" class="inputs-register" label="Apellido" label-placement="floating" ></ion-input>
               </div>
 
               <ion-input formControlName="email" class="inputs" label="Correo" label-placement="floating" ></ion-input>
               <ion-input formControlName="password" class="inputs" label="Contraseña" label-placement="floating" ></ion-input>
-              <ion-input formControlName="confirm_password" class="inputs" label="Contraseña" label-placement="floating" ></ion-input>
+              <ion-input formControlName="confirmpassword" class="inputs" label="Contraseña" label-placement="floating" ></ion-input>
 
               <ion-button type="submit" [disabled]="!registerForm.valid" color="success" class="btn-red"> Crear cuenta </ion-button>
+
+              <div *ngFor="let validation of validation_message.email" >
+                <div class="" *ngIf="(registerForm.get('email')?.hasError(validation.type) && registerForm.get('email')?.dirty)">
+                  <ion-toast isOpen="true"
+                    color="danger"
+                   [message]="validation.message" duration="2000"></ion-toast>
+                </div>
+              </div>
+              <div *ngFor="let validation of validation_message.password" >
+                <div class="" *ngIf="(registerForm.get('password')?.hasError(validation.type) && registerForm.get('password')?.touched)">
+                  <ion-toast isOpen="true"
+                    color="danger"
+                   [message]="validation.message" duration="2000"></ion-toast>
+                </div>
+              </div>
 
             </form>
           </ion-content>
