@@ -13,7 +13,6 @@ export class AuthService {
   ) { }
 
   async loginUser(credential: any) {
-
     this.datalogin = await this.storage.get('user')
   
     return new Promise((accept, reject) => {
@@ -28,7 +27,6 @@ export class AuthService {
   }
 
   RegisterUser(credentialreg: any){
-    
     return new Promise((accept, reject) => {
 
       if(credentialreg.password == credentialreg.confirmpassword ) {

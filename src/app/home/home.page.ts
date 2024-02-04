@@ -30,7 +30,6 @@ export class HomePage {
         console.log("Eventos desde el servidor",this.event_list)
       }
       )
-      console.log("Local Events",this.events.getLocalEvents().events);
   }
 
  

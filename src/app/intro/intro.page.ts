@@ -38,7 +38,8 @@ export class IntroPage {
 
   loginForm: FormGroup;
   registerForm: FormGroup;
-  isAlertOpen = false;
+  isAlertLogin = false;
+  isAlertRegister = false;
   prueba: any;
 
   validation_message = {
@@ -91,7 +92,7 @@ export class IntroPage {
       this.loginForm.reset()
     }).catch(err => {
       console.log(err);
-      this.isAlertOpen = true
+      this.isAlertLogin = true
     })
 
   }
@@ -108,7 +109,7 @@ export class IntroPage {
       this.registerForm.reset()
     }).catch(err => {
       console.log(err);
-      this.isAlertOpen = true
+      this.isAlertRegister = true
     })
   }
   

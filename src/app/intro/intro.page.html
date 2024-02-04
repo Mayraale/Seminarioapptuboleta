@@ -41,9 +41,9 @@
       </form>
 
         <ion-alert
-              [isOpen]="isAlertOpen"
+              [isOpen]="isAlertLogin"
               message="Correo electrónico o contraseña incorrectos. Por favor, inténtalo de nuevo."
-              (didDismiss)="isAlertOpen = false"
+              (didDismiss)="isAlertLogin = false"
         ></ion-alert>
 
       <a  class="center-content" id="open-modal"> Registrate </a>
@@ -83,7 +83,7 @@
 
               <ion-input formControlName="email" class="inputs" label="Correo" label-placement="floating" ></ion-input>
               <ion-input formControlName="password" class="inputs" label="Contraseña" label-placement="floating" ></ion-input>
-              <ion-input formControlName="confirmpassword" class="inputs" label="Contraseña" label-placement="floating" ></ion-input>
+              <ion-input formControlName="confirmpassword" class="inputs" label="confirmar contraseña" label-placement="floating" ></ion-input>
 
               <ion-button type="submit" [disabled]="!registerForm.valid" color="success" class="btn-red"> Crear cuenta </ion-button>
 
@@ -101,6 +101,13 @@
                    [message]="validation.message" duration="2000"></ion-toast>
                 </div>
               </div>
+
+              <ion-alert
+              [isOpen]="isAlertRegister"
+              message="Las contraseñas no coinciden"
+              (didDismiss)="isAlertRegister = false"
+              ></ion-alert>
+
 
             </form>
           </ion-content>
